@@ -17,10 +17,10 @@ final class APIManager {
 
 // MARK: - Public
 extension APIManager {
-    public func filterAsset(for assetID: String, completion: @escaping (Result<[FilterAssetResponse], Error>) -> Void) {
+    public func search(for assetID: String, completion: @escaping(Result<[SearchResult], Error>) -> Void) {
         let url = url(for: .asset, queryParams: ["filter_asset_id": assetID])
         
-        request(url: url, expecting: [FilterAssetResponse].self, completion: completion)
+        request(url: url, expecting: [SearchResult].self, completion: completion)
     }
     
 }
@@ -55,14 +55,14 @@ private extension APIManager {
         for (name, value) in queryParams {
             queryItems.append(.init(name: name, value: value))
         }
-        
+
         // Convert query items to suffix string
         let queryString = queryItems.map {"\($0.name)=\($0.value ?? APIError.noData.rawValue)"}.joined()
-        
+
         urlString += "?" + queryString
-        
+
         print("\n\(urlString)\n")
-        
+
         let returnURL = URL(string: urlString)
         
         return returnURL

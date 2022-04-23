@@ -34,9 +34,9 @@ class WatchListViewController: UIViewController {
 // MARK: - Private
 private extension WatchListViewController {
     private func setupSearchViewController() {
-        let searchVC = SearchViewController()
+        let searchResultVC = SearchResultViewController()
         
-        let searchController = UISearchController(searchResultsController: searchVC)
+        let searchController = UISearchController(searchResultsController: searchResultVC)
         searchController.searchResultsUpdater = self
         
         self.navigationItem.searchController = searchController
@@ -45,7 +45,12 @@ private extension WatchListViewController {
 
 extension WatchListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController)
+        guard let query = searchController.searchBar.text,
+              let resultVC = searchController.searchResultsController as? SearchResultViewController,
+              !query.trimmingCharacters(in: .whitespaces).isEmpty else {
+            return
+        }
+        
     }
 
 }

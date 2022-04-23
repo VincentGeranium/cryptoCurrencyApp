@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func debug() {
-        APIManager.shared.filterAsset(for: "BTC") { result in
+        APIManager.shared.search(for: "BTC") { result in
             switch result {
             case .success(let data):
                 print(data)
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
-
+    
+    
 }
 
